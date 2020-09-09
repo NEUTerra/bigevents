@@ -5,10 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- 这是绝对路径，/ 是指当前ip端口下加上这一段形成url -->
+    <!-- 在live server里能用的前提是，你的vscode根路径就是你项目的根路径，否则出错 -->
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/assets/css/login.css">
 </head>
 
 <body>
-
+    <!-- 头部logo区域 -->
+    <div class="layui-main">
+        <img src="/assets/images/logo.png" alt="">
+    </div>
+    <!-- 登录区域 -->
+    <div class="login-and-reg-box">
+        <div class="title-box"></div>
+        <div class="login-box">
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <i class="layui-icon layui-icon-username"></i>
+                    <input type="text" class="layui-input" lay-verify="required" autocomplete="off" name="username">
+                </div>
+                <div class="layui-form-item">
+                    <i class="layui-icon layui-icon-password"></i>
+                    <input type="password" class="layui-input" lay-verify="required|password" autocomplete="off"
+                        name="password">
+                </div>
+                <div class="layui-form-item">
+                    <button type="submit" class="layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
+                        lay-filter="demo1">立即提交</button>
+                </div>
+            </div>
+        </div>
+        <div class="reg-box"></div>
+    </div>
+    <script src="/assets/lib/jquery.js"></script>
+    <script src="/assets/lib/layui/layui.all.js"></script>
+    <script src="/assets/js/login.js"></script>
 </body>
 
 </html>
