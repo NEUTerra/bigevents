@@ -11,7 +11,7 @@ body {
 
 .login-and-reg-box {
     width: 400px;
-    height: 410px;
+    height: 310px;
     background-color: #fff;
     position: absolute;
     left: 50%;
@@ -26,4 +26,32 @@ body {
 
 .reg-box {
     display: none;
+}
+
+.login-box,
+.reg-box {
+    padding: 0 30px;
+}
+
+.login-box .layui-form-item,
+.reg-box .layui-form-item {
+    position: relative;
+}
+
+.login-box i,
+.reg-box i {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.login-box input,
+.reg-box input {
+    padding-left: 32px;
+}
+
+.login-box a,
+.reg-box a {
+    float: right;
+    font-size: 12px;
 }

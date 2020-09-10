@@ -1,45 +1,66 @@
-layui.use(['form', 'layedit', 'laydate'], function () {
-    var form = layui.form,
-        layer = layui.layer,
-        layedit = layui.layedit,
-        laydate = layui.laydate;
+$(function () {
+    const form = layui.form,
+        layer = layui.layer;
 
-    //自定义验证规则
     form.verify({
-        password: [
+        pwd: [
             /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'
         ],
+        repwd: function (value) {
+            const pwd = $('.reg-box input[name="password"]').val();
+            if (pwd !== value) {
+                return '两次输入密码不一致！';
+            }
+        }
     });
 
-
-    //监听提交
-    form.on('submit(demo1)', function (data) {
-        layer.alert(JSON.stringify(data.field), {
-            title: '最终的提交信息'
-        })
+    form.on('submit(register)', function (data) {
+        // delete data.field.repassword;
+        console.log(data.field);
+        $.ajax({
+            type: 'post',
+            url: 'http://ajax.frontend.itheima.net' + '/api/reguser',
+            data: {
+                username: data.field.username,
+                password: data.field.password
+            },
+            success: res => {
+                if (res.status !== 0) {
+                    // return console.log(res.message);
+                    return layer.msg(res.message)
+                }
+                layer.msg('注册成功！请登录');
+                $('#link_login').click();
+            }
+        });
         return false;
     });
 
-    //表单赋值
-    layui.$('#LAY-component-form-setval').on('click', function () {
-        form.val('example', {
-            "username": "贤心" // "name": "value"
-                ,
-            "password": "123456",
-            "interest": 1,
-            "like[write]": true //复选框选中状态
-                ,
-            "close": true //开关状态
-                ,
-            "sex": "女",
-            "desc": "我爱 layui"
-        });
+    form.on('submit(login)', function (data) {
+        console.log(data.field);
+        $.ajax({
+            type: 'post',
+            url: 'http://ajax.frontend.itheima.net' + '/api/login',
+            data: data.field,
+            success: res => {
+                if (res.status !== 0) {
+                    return layer.msg(res.message)
+                }
+                console.log(res.token);
+                localStorage.setItem('token', res.token);
+                location.href = '/index.html';
+            }
+        })
+        return false;
+    })
+
+    $('#link_login').click(function () {
+        $('.login-box').show();
+        $('.reg-box').hide();
     });
 
-    //表单取值
-    layui.$('#LAY-component-form-getval').on('click', function () {
-        var data = form.val('example');
-        alert(JSON.stringify(data));
-    });
-
-});
+    $('#link_register').click(function () {
+        $('.login-box').hide();
+        $('.reg-box').show();
+    })
+})
