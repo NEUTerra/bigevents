@@ -19,7 +19,7 @@ $(function () {
         console.log(data.field);
         $.ajax({
             type: 'post',
-            url: 'http://ajax.frontend.itheima.net' + '/api/reguser',
+            url: '/api/reguser',
             data: {
                 username: data.field.username,
                 password: data.field.password
@@ -40,7 +40,7 @@ $(function () {
         console.log(data.field);
         $.ajax({
             type: 'post',
-            url: 'http://ajax.frontend.itheima.net' + '/api/login',
+            url: '/api/login',
             data: data.field,
             success: res => {
                 if (res.status !== 0) {
